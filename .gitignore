@@ -1,0 +1,11 @@
+venv/
+.env
+
+session.json
+data_*.json
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+*.log
