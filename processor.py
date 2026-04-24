@@ -6,6 +6,7 @@ class ProfileProcessor:
         self.profile_info = {}
         self.posts = []
         self.reels = []
+        self.all_comments = []
         self.scrape_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     def process_identity(self, data):
@@ -85,3 +86,16 @@ class ProfileProcessor:
     def format_date(self, timestamp):
         if not timestamp: return None
         return datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
+    
+    def process_comments(self, data):
+        """Procesa el JSON de la URL comments/ """
+        comments_data = data.get("comments", [])
+        for c in comments_data[:3]:
+            comment_text = c.get("text")
+            if comment_text:
+                self.all_comments.append({
+                    "user": c.get("user", {}).get("username"),
+                    "text": comment_text,
+                    "likes": c.get("comment_like_count", 0),
+                    "verified": c.get("user", {}).get("is_verified", False)
+                })
