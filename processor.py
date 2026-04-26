@@ -90,7 +90,7 @@ class ProfileProcessor:
     def process_comments(self, data):
         """Procesa el JSON de la URL comments/ """
         comments_data = data.get("comments", [])
-        for c in comments_data[:3]:
+        for c in comments_data[:10]:
             comment_text = c.get("text")
             if comment_text:
                 self.all_comments.append({
